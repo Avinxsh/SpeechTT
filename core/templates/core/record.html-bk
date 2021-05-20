@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<br>
+<br>
+   
+<form method="POST">
+    {% csrf_token %} 
+    <input class="btn btn-dark" type="submit" value="Record" name="start"> &nbsp; &nbsp; &nbsp;
+    <!-- <input class="btn btn-dark" type="submit" value="Stop" name="stop"> -->
+</form>
+
+<form method="POST">
+    {% csrf_token %}
+    <input style="float: right;" type="submit" class="btn btn-dark" name="exportMenu" value="Export CSV">
+</form>
+
+<br>
+
+<h3>Transcription</h3>
+
+{% if audio_result %}
+    {% for word in audio_result %}
+        {% if "rupees" in word %}
+            <h4> {{word}} </h4>
+            <br>
+        {% else %}
+            <h4> {{word}} </h4>
+        {% endif %}
+    {%endfor%}
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+<br>
+    <h1>{{name}}</h1>
+
+<br>
+<br>
+{% if file %}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th><h4>File Name</h4></th>
+            <th><h4>Upload Time</h4></th>
+            <th><h4>File URL</h4></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in file %}
+        <tr>
+            <td>{{item.upload.name}}</td>
+            <td>{{item.uploaded_at}}</td>
+            <td><a href="{{item.upload.url}}" target="_blank">{{item.upload.url}}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+<br>
+<br>
+
+<form method="POST">
+    {% csrf_token %}
+    <input style="float: right;" type="submit" class="btn btn-dark" name="exportMenu" value="Export CSV">
+</form>
+
+
+{% for item in file %}
+<audio controls>
+    <source src={{item.upload.url}} type="audio/wav">
+  Your browser does not support the audio element.
+</audio>
+{% endfor %}
+
+
+<br>
+<br>
+
+<h2>Result :</h2>
+{% if audio_result %}
+    {% for item in audio_result %}
+    <h5>{{item}}</h5>
+    {% endfor %}
+{% else %}
+    <h5>Error!</h5>
+{% endif %}
+
+<!-- <h3>{{url}}</h3> -->
+
+{% endblock %}

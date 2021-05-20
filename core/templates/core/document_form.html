@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+<br>
+
+ 
+<br>
+  
+    {% csrf_token %} 
+    
+<br>
+<br>
+
+<table style="table-layout: fixed ; width: 90%;">
+  <td>
+    <h3>
+      Select Files
+      <small class="text-muted">from the computer</small>
+    </h3> 
+    <p class="lead">
+      Upload button will save the audio in the S3 basket!
+    </p>
+  </td>
+  <td> 
+    <div class="text-center">
+      <img style="height:30%; width:30%" src="{% static 'img/nStore.png' %}" class="rounded" alt="HI">
+    </div>
+  </td>
+</table>
+
+<br>
+<br> 
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-dark" type="submit" name="upload">Submit</button>
+  </form> 
+
+
+<br>
+  <table cellspacing="3" border="2" cellpadding="15">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Uploaded at</th>
+        <th>Size</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for document in documents %}
+        <tr>
+          <!-- <td><a href="{{ document.upload.url }}" target="_blank">{{ document.upload.name }}</a></td> -->
+          <td class="text-center">
+            <form method="post" action="extract/{{document.upload}}/" target="_blank">
+              {% csrf_token %}
+              <input type="hidden" name="doc_obj" value="{{document.uploaded_at|date:"Y-m-d H:i:s" }}"/>
+              <input type="hidden" name="url" value="{{document.upload.url}}"/>
+              <!-- <h5>{{document.upload.url}}</h5> -->
+              <button class="btn btn-light btn-sm" type="submit"> {{ document.upload.name }} </button>
+            </form> 
+          </td>
+          <td>{{ document.uploaded_at }}</td>
+          <td>{{ document.upload.size|filesizeformat }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3">No data.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
