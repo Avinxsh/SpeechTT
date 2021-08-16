@@ -31,8 +31,8 @@ import random
 client = speech.SpeechClient()
 # from trp import Document as trpDoc
 session = boto3.Session(
-    aws_access_key_id='AKIA2H2Q6BQLBDLV64KL',
-    aws_secret_access_key='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',)
+    aws_access_key_id=key,
+    aws_secret_access_key=key,)
 
 s3 = session.client('s3')
 
@@ -198,8 +198,8 @@ def extract(request, file_name):
             result_1 = result.get('translatedText')
             print(result_1)
             #==============================AMAZON COMPREHEND========================================
-            aws_access_key_id = "AKIA2H2Q6BQLBDLV64KL"
-            aws_secret_access_key = "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"
+            aws_access_key_id = key
+            aws_secret_access_key = key
             region = "ap-south-1"
             comprehend = boto3.client(service_name='comprehend', region_name='ap-south-1')
             newjson=json.loads(json.dumps(comprehend.detect_entities(Text=result_1, LanguageCode='en'), sort_keys=True, indent=4))
@@ -445,8 +445,8 @@ def record(request):
                 print(result_1)
                 #==============================AMAZON COMPREHEND========================================
                 arr=[]
-                aws_access_key_id = "AKIA2H2Q6BQLKDB5OV4R"
-                aws_secret_access_key = "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"
+                aws_access_key_id = key
+                aws_secret_access_key = key
                 region = "ap-south-1"
                 comprehend = boto3.client(service_name='comprehend', region_name='ap-south-1')
                 newjson=json.loads(json.dumps(comprehend.detect_entities(Text=result_1,LanguageCode='en'), sort_keys=True, indent=4))
@@ -682,8 +682,8 @@ def api(request):
             result_1 = result.get('translatedText')
             print(result_1)
             #==============================AMAZON COMPREHEND========================================
-            aws_access_key_id = "AKIA2H2Q6BQLBDLV64KL"
-            aws_secret_access_key = "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"
+            aws_access_key_id = key
+            aws_secret_access_key = key
             region = "ap-south-1"
             comprehend = boto3.client(service_name='comprehend', region_name='ap-south-1')
             newjson=json.loads(json.dumps(comprehend.detect_entities(Text=result_1, LanguageCode='en'), sort_keys=True, indent=4))
